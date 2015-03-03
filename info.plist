@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>me.sgottreu.alfred2-beanstalk</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3E69A235-58EA-4209-9996-A528C69641C2</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>939384BB-BF21-4343-98F2-AC0CAE007C94</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>Copy to clipboard</string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Scott Gottreu</string>
+	<key>description</key>
+	<string>Open Beanstalk repositories</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Beanstalk</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>plusspaces</key>
+				<false/>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>3E69A235-58EA-4209-9996-A528C69641C2</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>bsk</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>loading...</string>
+				<key>script</key>
+				<string>beanstalk_username="sgottreu"
+beanstalk_password="fc94090ef63fc5692a61ed532ce2a54ca2dd4e0ea638d560ee"
+beanstalk_email="scott.gottreu@warrendouglas.com"
+beanstalk_company_url="warren-douglas"
+
+/Users/scottgottreu/.rvm/rubies/ruby-2.1.1/bin/ruby ./main.rb "{query}" $beanstalk_username $beanstalk_password $beanstalk_email $beanstalk_company_url</string>
+				<key>subtext</key>
+				<string>Open Beanstalk Projects</string>
+				<key>title</key>
+				<string>Beanstalk</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>21557827-8003-42B7-A042-16D4C9278FEC</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>939384BB-BF21-4343-98F2-AC0CAE007C94</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>1. Right click on the bc Script Filter and click Configure.
+2. Fill out your Beanstalk information. Note that if you belong to more than one organization, you can enter them separated by commas.
+3. Have fun.
+
+This will cache your results, so if you need to refresh start your query with: !</string>
+	<key>uidata</key>
+	<dict>
+		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
+		<dict>
+			<key>ypos</key>
+			<real>160</real>
+		</dict>
+		<key>3E69A235-58EA-4209-9996-A528C69641C2</key>
+		<dict>
+			<key>ypos</key>
+			<real>20</real>
+		</dict>
+		<key>939384BB-BF21-4343-98F2-AC0CAE007C94</key>
+		<dict>
+			<key>ypos</key>
+			<real>200</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>https://github.com/sgottreu/alfred2-beanstalk</string>
+</dict>
+</plist>
