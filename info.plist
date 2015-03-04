@@ -8,23 +8,37 @@
 	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
-		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
+		<key>162FB58C-2436-441A-9652-40A2E139571A</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>3E69A235-58EA-4209-9996-A528C69641C2</string>
+				<string>5698A4B2-0508-4BF0-97E9-1E3BCEA03C4F</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 			</dict>
+		</array>
+		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
+		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>939384BB-BF21-4343-98F2-AC0CAE007C94</string>
+				<string>162FB58C-2436-441A-9652-40A2E139571A</string>
 				<key>modifiers</key>
-				<integer>1048576</integer>
+				<integer>0</integer>
 				<key>modifiersubtext</key>
-				<string>Copy to clipboard</string>
+				<string></string>
+			</dict>
+		</array>
+		<key>4A7EA24F-E6C0-4F40-9165-91C38E6528DF</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>ABB1917D-B92C-4D60-A7D1-79D3F1C6AB21</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
 			</dict>
 		</array>
 	</dict>
@@ -41,17 +55,34 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>plusspaces</key>
-				<false/>
-				<key>url</key>
-				<string>{query}</string>
-				<key>utf8</key>
-				<true/>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>tell application "Alfred 2" to search "bskenv " </string>
+				<key>type</key>
+				<integer>6</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
+			<string>alfred.workflow.output.script</string>
 			<key>uid</key>
-			<string>3E69A235-58EA-4209-9996-A528C69641C2</string>
+			<string>6CA5D167-319C-492E-A2E3-844D927DB6E2</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>62</integer>
+				<key>script</key>
+				<string>/Users/scottgottreu/.rvm/rubies/ruby-2.1.1/bin/ruby ./build_url.rb "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>162FB58C-2436-441A-9652-40A2E139571A</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -80,7 +111,29 @@ beanstalk_password="fc94090ef63fc5692a61ed532ce2a54ca2dd4e0ea638d560ee"
 beanstalk_email="scott.gottreu@warrendouglas.com"
 beanstalk_company_url="warren-douglas"
 
-/Users/scottgottreu/.rvm/rubies/ruby-2.1.1/bin/ruby ./main.rb "{query}" $beanstalk_username $beanstalk_password $beanstalk_email $beanstalk_company_url</string>
+IFS=', ' read -a beanstalk &lt;&lt;&lt; "{query}"
+
+if [ ${#beanstalk[@]} -eq 1 ]
+then
+/Users/scottgottreu/.rvm/rubies/ruby-2.1.1/bin/ruby ./main.rb "{query}" $beanstalk_username $beanstalk_password $beanstalk_email $beanstalk_company_url
+
+else
+	
+
+cat &lt;&lt; CODE
+&lt;?xml version="1.0"?&gt;
+&lt;items&gt;
+&lt;item uid="beanstalk_env" arg="https://${#beanstalk[0]}.beanstalkapp.com/${#beanstalk[1]}/environments" valid="yes"&gt;
+&lt;title&gt;{#beanstalk[1]}&lt;/title&gt;
+&lt;subtitle&gt;Environments&lt;/subtitle&gt;
+&lt;icon&gt;icon.png&lt;/icon&gt;
+&lt;/item&gt;
+&lt;/items&gt;
+CODE
+
+
+
+fi</string>
 				<key>subtext</key>
 				<string>Open Beanstalk Projects</string>
 				<key>title</key>
@@ -100,15 +153,85 @@ beanstalk_company_url="warren-douglas"
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
+				<key>lastpathcomponent</key>
 				<false/>
-				<key>clipboardtext</key>
-				<string></string>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>test</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>939384BB-BF21-4343-98F2-AC0CAE007C94</string>
+			<string>5698A4B2-0508-4BF0-97E9-1E3BCEA03C4F</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>bskenv</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>..loading</string>
+				<key>script</key>
+				<string>echo {query}</string>
+				<key>title</key>
+				<string>Choose which repo page to load</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>4A7EA24F-E6C0-4F40-9165-91C38E6528DF</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Ruby test</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>ABB1917D-B92C-4D60-A7D1-79D3F1C6AB21</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -121,20 +244,35 @@ beanstalk_company_url="warren-douglas"
 This will cache your results, so if you need to refresh start your query with: !</string>
 	<key>uidata</key>
 	<dict>
-		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
-		<dict>
-			<key>ypos</key>
-			<real>160</real>
-		</dict>
-		<key>3E69A235-58EA-4209-9996-A528C69641C2</key>
+		<key>162FB58C-2436-441A-9652-40A2E139571A</key>
 		<dict>
 			<key>ypos</key>
 			<real>20</real>
 		</dict>
-		<key>939384BB-BF21-4343-98F2-AC0CAE007C94</key>
+		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
+		<dict>
+			<key>ypos</key>
+			<real>170</real>
+		</dict>
+		<key>4A7EA24F-E6C0-4F40-9165-91C38E6528DF</key>
+		<dict>
+			<key>ypos</key>
+			<real>290</real>
+		</dict>
+		<key>5698A4B2-0508-4BF0-97E9-1E3BCEA03C4F</key>
 		<dict>
 			<key>ypos</key>
 			<real>200</real>
+		</dict>
+		<key>6CA5D167-319C-492E-A2E3-844D927DB6E2</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>ABB1917D-B92C-4D60-A7D1-79D3F1C6AB21</key>
+		<dict>
+			<key>ypos</key>
+			<real>500</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>

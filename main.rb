@@ -13,12 +13,28 @@ Alfred.with_friendly_error do |alfred|
 
   # prepend ! in query to refresh
   is_refresh = false
+
+  
+
   if ARGV[0].start_with? '!'
     is_refresh = true
     ARGV[0] = ARGV[0].gsub(/!/, '')
   end
 
+  flag = false
+
+  if ARGV[0].end_with? ' -r'
+    flag = 'r'
+    ARGV[0] = ARGV[0].gsub(/ \-r/, '')
+  elsif ARGV[0].end_with? ' -d'
+    flag = 'd'
+    ARGV[0] = ARGV[0].gsub(/ \-d/, '')
+  else
+    flag = false
+  end
+
   # contants
+
   QUERY = ARGV[0]
   BEANSTALK_USERNAME = ARGV[1]
   BEANSTALK_PASSWORD = ARGV[2]
@@ -43,7 +59,7 @@ Alfred.with_friendly_error do |alfred|
     JSON.parse(response.body)
   end
 
-  def load_projects(alfred)
+  def load_projects(alfred, flag)
     fb = alfred.feedback
 
     for page in 1..100
@@ -53,11 +69,14 @@ Alfred.with_friendly_error do |alfred|
       break if repositories.count == 0
 
       repositories.each do |repo|
+
+        json = {"repo" => repo["repository"]["name"], "url" => BEANSTALK_COMPANY_URL, "flag" => flag }
+
         fb.add_item({
           :uid => repo["repository"]["id"],
           :title => repo["repository"]["title"],
           :subtitle => "https://"+BEANSTALK_COMPANY_URL+".beanstalkapp.com/"+repo["repository"]["name"],
-          :arg => "https://"+BEANSTALK_COMPANY_URL+".beanstalkapp.com/"+repo["repository"]["name"],
+          :arg => BEANSTALK_COMPANY_URL+':'+repo["repository"]["name"],
           :autocomplete => repo["repository"]["name"],
           :valid => "yes"
         })
@@ -76,7 +95,7 @@ Alfred.with_friendly_error do |alfred|
     # cached feedback is valid
     puts fb.to_alfred(ARGV[0])
   else
-    fb = load_projects(alfred)
+    fb = load_projects(alfred, flag)
     fb.put_cached_feedback
     puts fb.to_alfred(ARGV[0])
   end
